@@ -1,0 +1,23 @@
+Bai 1
+SELECT first_name, last_name, state
+FROM sales.customers
+WHERE state = 'NY'
+ORDER BY first_name ASC;
+
+Bai 2
+SELECT 
+    city,
+    COUNT(*) AS so_luong_khach_hang
+FROM sales.customers
+WHERE state = 'NY'
+GROUP BY city
+HAVING COUNT(*) >= 10
+ORDER BY city DESC;
+
+Bai 3
+SELECT 
+    YEAR(order_date) AS nam,
+    COUNT(*) AS so_luong_don_hang
+FROM sales.orders
+GROUP BY YEAR(order_date)
+ORDER BY nam ASC;
