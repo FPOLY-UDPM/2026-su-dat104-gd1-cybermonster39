@@ -1,6 +1,6 @@
 --Bai 1
 SELECT first_name, last_name, state
-FROM sales.customerss
+FROM sales.customers
 WHERE state = 'NY'
 ORDER BY first_name ASC;
 
