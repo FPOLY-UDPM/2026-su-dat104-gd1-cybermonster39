@@ -1,0 +1,33 @@
+--1. Đơn hàng và tổng tiền từng đơn
+SELECT 
+    o.order_id AS [Mã Đơn Hàng],
+    o.order_date AS [Ngày Đặt Hàng],
+    SUM(oi.quantity * oi.list_price * (1 - oi.discount)) AS [Tổng Tiền]
+FROM sales.orders o
+JOIN sales.order_items oi ON o.order_id = oi.order_id
+GROUP BY 
+    o.order_id, 
+    o.order_date
+ORDER BY o.order_date DESC, o.order_id DESC;
+--2. Khách hàng và số đơn hàng họ đã mua
+SELECT 
+    c.customer_id AS [Mã Khách Hàng],
+    c.first_name + ' ' + c.last_name AS [Tên Khách Hàng],
+    COUNT(o.order_id) AS [Số Đơn Hàng Đã Mua]
+FROM sales.customers c
+JOIN sales.orders o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.customer_id, 
+    c.first_name, 
+    c.last_name
+ORDER BY [Số Đơn Hàng Đã Mua] DESC, c.customer_id;
+
+--3. Ten Sản phẩm và số lượng bán được
+SELECT 
+    p.product_name AS [Tên Sản Phẩm],
+    SUM(oi.quantity) AS [Số Lượng Bán Được]
+FROM production.products p
+JOIN sales.order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_name
+ORDER BY [Số Lượng Bán Được] DESC;
+
